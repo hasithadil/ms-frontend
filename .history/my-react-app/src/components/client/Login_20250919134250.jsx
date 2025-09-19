@@ -37,8 +37,10 @@ function Login() {
       localStorage.setItem('jwtToken', data.jwtToken);
       localStorage.setItem('email', data.email);
 
+      // Navigate to home page
       navigate('/home');
 
+      // Reset form
       setEmail('');
       setPassword('');
     } catch (error) {
