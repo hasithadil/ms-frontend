@@ -5,17 +5,30 @@ import Order from "./components/client/Order";
 import Cart from "./components/client/Cart";
 import WmHome from "./components/wm/WmHome";
 import DpHome from "./components/dp/DpHome";
+import Register from "./pages/register";
+import { ToastContainer } from "react-toastify";
+
 
 function App() {
   return (
     <BrowserRouter>
+         <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        pauseOnHover
+        draggable
+      />
       <Routes>
+
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/order" element={<Order />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wmhome" element={<WmHome />} />
                 <Route path="/dphome" element={<DpHome />} />
+                <Route path="/register" element={<Register />} />
 
       </Routes>
     </BrowserRouter>
