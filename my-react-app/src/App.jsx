@@ -7,6 +7,7 @@ import WmHome from "./components/wm/WmHome";
 import DpHome from "./components/dp/DpHome";
 import Register from "./pages/register";
 import { ToastContainer } from "react-toastify";
+import Track from "./pages/track";
 
 
 function App() {
@@ -27,8 +28,9 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wmhome" element={<WmHome />} />
-                <Route path="/dphome" element={<DpHome />} />
-                <Route path="/register" element={<Register />} />
+        <Route path="/dphome" element={<DpHome />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/track/:id" element={<Track />} />
 
       </Routes>
     </BrowserRouter>

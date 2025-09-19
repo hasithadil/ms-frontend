@@ -1,7 +1,8 @@
 // src/Login.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../css/client/Login.css';
+import '../../css/client/Login.css'
+import logo from '../../assets/logo.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -53,7 +54,8 @@ function Login() {
   };
 
   return (
-    <div className="login-container bg-white p-8 rounded-lg shadow-md w-96 mx-auto mt-60  my-auto">
+    <div className="login-container bg-white p-8 rounded-lg shadow-md w-100 mx-auto mt-40  my-auto">
+      <img src={logo} alt="Logo" className="w-50 h-50 mx-auto" />
       <h2 className='text-2xl font-bold mb-6 text-blue-600'>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
