@@ -54,7 +54,7 @@ function Cart() {
               Home
             </NavLink>
             <NavLink
-              to="/orders"
+              to="/order"
               className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
             >
               Orders
