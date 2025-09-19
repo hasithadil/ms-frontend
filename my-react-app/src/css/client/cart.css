@@ -77,7 +77,6 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 16px;
-  text-align: center;
 }
 
 .cart-section h2 {
@@ -90,6 +89,86 @@ body {
 .cart-empty {
   font-size: 16px;
   color: #4b5563;
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.cart-item-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-item-details {
+  text-align: center;
+}
+
+.cart-item-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.cart-item-price {
+  font-size: 16px;
+  color: #e11d48;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.cart-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.form-input {
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.submit-order-btn {
+  background-color: #3b82f6;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.submit-order-btn:hover {
+  background-color: #2563eb;
 }
 
 /* Responsive adjustments */
@@ -133,5 +212,27 @@ body {
 
   .cart-empty {
     font-size: 14px;
+  }
+
+  .cart-item-image {
+    width: 150px;
+    height: 100px;
+  }
+
+  .cart-item-name {
+    font-size: 16px;
+  }
+
+  .cart-item-price {
+    font-size: 14px;
+  }
+
+  .form-input {
+    font-size: 12px;
+  }
+
+  .submit-order-btn {
+    font-size: 12px;
+    padding: 6px;
   }
 }
