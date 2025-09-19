@@ -37,9 +37,13 @@ function Login() {
       localStorage.setItem('jwtToken', data.jwtToken);
       localStorage.setItem('email', data.email);
 
-      navigate('/home');
-
-      setEmail('');
+      if (data.role === 'warehouse_keeper') {
+        navigate('/wmhome');
+      } else if (data.role === 'deliveryman') {
+        navigate('/dphome');
+      } else {
+        navigate('/home'); // Default redirection
+      }
       setPassword('');
     } catch (error) {
       console.error('Error logging in:', error);
@@ -48,8 +52,8 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
+    <div className="login-container bg-white p-8 rounded-lg shadow-md w-96 mx-auto mt-60  my-auto">
+      <h2 className='text-2xl font-bold mb-6 text-blue-600'>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -73,7 +77,8 @@ function Login() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className='bg-red-100'>Login</button>
+        <p className='text-gray-800 mt-3 text-sm text-center'>Don't Have An Account ? <a href="/register" className='text-blue-500 underline'>Register</a></p>
       </form>
     </div>
   );
