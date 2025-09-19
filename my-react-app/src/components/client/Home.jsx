@@ -1,22 +1,50 @@
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import '../../css/client/Home.css';
+import axios from 'axios';
+
 
 function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Initialize and load products from localStorage
-  useEffect(() => {
-    const storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
-    if (storedProducts.length === 0) {
-      // Default products if none exist
-      const defaultProducts = [];
-      localStorage.setItem('products', JSON.stringify(defaultProducts));
-    } else {
-      setProducts(storedProducts);
+  // useEffect(() => {
+  //   const storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
+  //   if (storedProducts.length === 0) {
+  //     // Default products if none exist
+  //     const defaultProducts = [];
+  //     localStorage.setItem('products', JSON.stringify(defaultProducts));
+  //   } else {
+  //     setProducts(storedProducts);
+  //   }
+  // }, []);
+useEffect(() => {
+  const fetchData = async () => {
+    const token = localStorage.getItem('jwtToken');
+    try {
+      const response = await axios.get('http://localhost:8085/wms/items/getAllItems', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log("Response:", response);
+      console.log("Response data:", response.data);
+
+      //setProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
-  }, []);
+  };
+
+  fetchData();
+}, []);
+
 
   // Handler for adding an item to an order
   const handleAddToOrder = (product) => {

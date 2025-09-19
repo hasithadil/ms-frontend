@@ -33,6 +33,7 @@ function Login() {
       console.log('Login response:', data);
 
       // Store only required values in localStorage
+      localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
       localStorage.setItem('jwtToken', data.jwtToken);
       localStorage.setItem('email', data.email);
