@@ -33,18 +33,6 @@ function DpHome() {
         <nav className="nav-bar">
           <h1 className="nav-title">SwiftTrack - Delivery</h1>
           <div className="nav-links">
-            <NavLink
-              to="/home"
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >
-              Client Home
-            </NavLink>
-            <NavLink
-              to="/order"
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >
-              Orders
-            </NavLink>
             <button className="logout-btn" onClick={handleLogout}>
               Logout
             </button>
