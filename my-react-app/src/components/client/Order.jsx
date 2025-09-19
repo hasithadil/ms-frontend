@@ -1,19 +1,49 @@
-import { useNavigate, NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import '../../css/client/order.css';
+import { useNavigate, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import "../../css/client/order.css";
+import axios from "axios";
+
 // Load orders from localStorage
 function Orders() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   const storedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+  //   setOrders(storedOrders);
+  // }, []);
 
   useEffect(() => {
-    const storedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-    setOrders(storedOrders);
-  }, []);
+    const fetchData = async () => {
+      const token = localStorage.getItem("jwtToken");
+      try {
+        const response = await axios.get(
+          `http://localhost:8085/cms/orders/getOrders/${localStorage.getItem(
+            "id"
+          )}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        //console.log(response.data);
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, []);
   // Handler for logout
   const handleLogout = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -24,13 +54,17 @@ function Orders() {
           <div className="nav-links">
             <NavLink
               to="/home"
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
             >
               Home
             </NavLink>
             <NavLink
               to="/order"
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
             >
               Orders
             </NavLink>
@@ -41,43 +75,80 @@ function Orders() {
         </nav>
         <div className="orders-section">
           <h2>Your Orders</h2>
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Product</th>
-                  <th>Quantity</th>
-                  <th>Delivery Address</th>
-                  <th>Status</th>
-                  <th>Last Updated</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order) => (
-                  <tr key={order.id}>
-                    <td>{order.id}</td>
-                    <td>{order.productName}</td>
-                    <td>{order.quantity}</td>
-                    <td>{order.address}</td>
-                    <td>
+          {loading ? (
+            <div className="loading">Loading orders...</div>
+          ) : error ? (
+            <div className="error">Error loading orders. Please try again.</div>
+          ) : (
+            <div className="orders-list">
+              {orders.length === 0 ? (
+                <div className="no-orders">No orders placed yet.</div>
+              ) : (
+                orders.map((order) => (
+                  <div key={order.id} className="order-card">
+                    <div className="order-header">
+                      <div className="order-id">Order #{order.id}</div>
+                      <div className="order-date">
+                        {new Date(order.orderDate).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </div>
                       <span
-                        className={`status-badge status-${order.status.toLowerCase().replace(' ', '-')}`}
+                        className={`status-badge status-${order.status
+                          .toLowerCase()
+                          .replace(" ", "-")}`}
                       >
                         {order.status}
                       </span>
-                    </td>
-                    <td>{order.lastUpdated}</td>
-                  </tr>
-                ))}
-                {orders.length === 0 && (
-                  <tr>
-                    <td colSpan="6" className="no-orders">No orders placed yet.</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                    </div>
+
+                    <div className="order-body">
+                      <div className="product-info">
+                        <h3>{order.item.name}</h3>
+                        <p className="product-description">
+                          {order.item.description}
+                        </p>
+                        <div className="product-details">
+                          <span className="sku">SKU: {order.item.sku}</span>
+                          <span className="price">
+                            Unit Price: ${order.item.price}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="order-details">
+                        <div className="detail-row">
+                          <span className="label">Quantity:</span>
+                          <span className="value">{order.quantity}</span>
+                        </div>
+                        <div className="detail-row">
+                          <span className="label">Shipping Fee:</span>
+                          <span className="value">${order.shippingFee}</span>
+                        </div>
+                        <div className="detail-row">
+                          <span className="label">Payment Method:</span>
+                          <span className="value">{order.paymentMethod}</span>
+                        </div>
+                        <div className="detail-row total">
+                          <span className="label">Total Price:</span>
+                          <span className="value">${order.totalPrice}</span>
+                        </div>
+                      </div>
+
+                      <div className="delivery-info">
+                        <h4>Delivery Address</h4>
+                        <p>{order.address}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
