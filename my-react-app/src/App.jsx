@@ -9,6 +9,8 @@ import Register from "./pages/register";
 import { ToastContainer } from "react-toastify";
 import Track from "./pages/track";
 import AddItem from "./components/wm/AddItem"
+import Path from "./pages/Path";
+import Wmorders from "./pages/Wmorders";
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
         <Route path="/dphome" element={<DpHome />} />
         <Route path="/register" element={<Register />} />
         <Route path="/track/:id" element={<Track />} />
+        <Route path="/path" element={<Path />} />
+        <Route path="/wmorders" element={<Wmorders />} />
 
       </Routes>
     </BrowserRouter>
