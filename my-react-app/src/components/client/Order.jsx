@@ -29,7 +29,7 @@ function Orders() {
             },
           }
         );
-        //console.log(response.data);
+        console.log(response.data);
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -87,23 +87,36 @@ function Orders() {
                 orders.map((order) => (
                   <div key={order.id} className="order-card">
                     <div className="order-header">
-                      <div className="order-id">Order #{order.id}</div>
-                      <div className="order-date">
-                        {new Date(order.orderDate).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
+                      <div className="order-info">
+                        <div className="order-id">Order #{order.id}</div>
+                        <div className="order-date">
+                          {new Date(order.orderDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            }
+                          )}
+                        </div>
                       </div>
-                      <span
-                        className={`status-badge status-${order.status
-                          .toLowerCase()
-                          .replace(" ", "-")}`}
-                      >
-                        {order.status}
-                      </span>
+                      <div className="order-actions">
+                        <span
+                          className={`status-badge status-${order.status
+                            .toLowerCase()
+                            .replace(" ", "-")}`}
+                        >
+                          {order.status}
+                        </span>
+                        <button
+                          className="track-btn"
+                          onClick={() => navigate(`/track/${order.id}`)}
+                        >
+                          Track Order
+                        </button>
+                      </div>
                     </div>
 
                     <div className="order-body">

@@ -114,6 +114,18 @@ body {
   border-bottom: 1px solid #e5e7eb;
 }
 
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .order-id {
   font-size: 18px;
   font-weight: 600;
@@ -299,7 +311,17 @@ body {
   .order-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 12px;
+  }
+
+  .order-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .track-btn {
+    font-size: 12px;
+    padding: 6px 10px;
   }
 
   .order-body {
