@@ -20,16 +20,16 @@ function Orders() {
       const token = localStorage.getItem("jwtToken");
       try {
         const response = await axios.get(
-          `http://localhost:8085/cms/orders/getOrders/${localStorage.getItem(
-            "id"
-          )}`,
+          `http://localhost:8085/cms/orders`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
+        const filteredOrders = response.data.filter((order) => order.status !== "CANCELLED");
         console.log(response.data);
+
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -47,32 +47,36 @@ function Orders() {
   };
 
   return (
-    <div className="orders-container">
+    <div className="">
+        <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center mb-10">
+        <h1 className="text-2xl font-bold text-blue-600">SwiftTrack</h1>
+        <div className="flex gap-6 items-center">
+          <NavLink
+            to="/home"
+            className={({ isActive }) =>
+              `font-medium ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'}`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/order"
+            className={({ isActive }) =>
+              `font-medium ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'}`
+            }
+          >
+            Orders
+          </NavLink>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
       <div className="orders-content">
-        <nav className="nav-bar">
-          <h1 className="nav-title">SwiftTrack</h1>
-          <div className="nav-links">
-            <NavLink
-              to="/home"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/order"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Orders
-            </NavLink>
-            <button className="logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
-        </nav>
+        
         <div className="orders-section">
           <h2>Your Orders</h2>
           {loading ? (
@@ -128,7 +132,7 @@ function Orders() {
                         <div className="product-details">
                           <span className="sku">SKU: {order.item.sku}</span>
                           <span className="price">
-                            Unit Price: ${order.item.price}
+                            Unit Price: LKR {order.item.price}
                           </span>
                         </div>
                       </div>
@@ -140,7 +144,7 @@ function Orders() {
                         </div>
                         <div className="detail-row">
                           <span className="label">Shipping Fee:</span>
-                          <span className="value">${order.shippingFee}</span>
+                          <span className="value">LKR {order.shippingFee}</span>
                         </div>
                         <div className="detail-row">
                           <span className="label">Payment Method:</span>
@@ -148,7 +152,7 @@ function Orders() {
                         </div>
                         <div className="detail-row total">
                           <span className="label">Total Price:</span>
-                          <span className="value">${order.totalPrice}</span>
+                          <span className="value">LKR {order.totalPrice}</span>
                         </div>
                       </div>
 

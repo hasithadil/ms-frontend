@@ -47,27 +47,27 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div >
       {/* Navbar */}
-      <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+      <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center mb-10">
         <h1 className="text-2xl font-bold text-blue-600">SwiftTrack</h1>
         <div className="flex gap-6 items-center">
-          <NavLink
-            to="/home"
-            className={({ isActive }) =>
-              `font-medium ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'}`
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/order"
-            className={({ isActive }) =>
-              `font-medium ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'}`
-            }
-          >
-            Orders
-          </NavLink>
+            <NavLink
+              to="/home"
+              className={({ isActive }) =>
+                `font-medium ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'}`
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/order"
+              className={({ isActive }) =>
+                `font-medium ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'}`
+              }
+            >
+              Orders
+            </NavLink>
           <button
             onClick={handleLogout}
             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
