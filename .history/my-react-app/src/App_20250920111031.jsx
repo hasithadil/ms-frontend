@@ -8,7 +8,6 @@ import DpHome from "./components/dp/DpHome";
 import Register from "./pages/register";
 import { ToastContainer } from "react-toastify";
 import Track from "./pages/track";
-import AddItem from "./components/wm/AddItem"
 
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wmhome" element={<WmHome />} />
-        <Route path="/addItem" element={<AddItem />} />
         <Route path="/dphome" element={<DpHome />} />
         <Route path="/register" element={<Register />} />
         <Route path="/track/:id" element={<Track />} />
